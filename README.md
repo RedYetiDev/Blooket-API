@@ -14,8 +14,8 @@ blook.getgame()
 ### Issue Reporting
 Issues should be filed like so
 
-| Bugs                                          | Features                   | 
-|-----------------------------------------------|----------------------------|
-| Bug Reporting Template                        | Feature Reporting Template |
-| Make sure to include: Game Mode, Browser name | Make sure to include: None | 
-------------------------------------------------------------------------------
+| Bugs                                          | Features                                    | 
+|-----------------------------------------------|---------------------------------------------|
+| Bug Reporting Template                        | Feature Reporting Template                  |
+| Make sure to include: Game Mode, Browser name | Make sure to include: Nothing in particular | 
+----------------------------------------------------------------------------------------------

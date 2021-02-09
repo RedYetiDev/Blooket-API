@@ -11,6 +11,7 @@ class blooket {
     this.glitch = this.glitch.bind(this)
     this.glitchplayers = this.glitchplayers.bind(this)
     this.raceplace = this.raceplace.bind(this)
+    this.getstats = this.getstats.bind(this)
   }
   async checkgame() {
     console.log(this)
@@ -18,6 +19,7 @@ class blooket {
     this.mode = document.getElementById("mode").value
     console.log(this)
     $("#root").fadeOut()
+    ReactDOM.render((<div id="loader"></div>), document.getElementById("main"))
     if (pin == '') {
       alert("Pin cannot be blank!")
       location.reload()
@@ -31,6 +33,7 @@ class blooket {
      var menu = (
        <div class="container">
          <button onClick={this.modify} class="btn success">Modify score/powerups.</button>
+         <button onClick={this.getstats} class="btn success">Get Stats</button>
        </div>
      );
      if (this.mode == "factory") {
@@ -38,18 +41,55 @@ class blooket {
          <div class="container">
            <button onClick={this.modify} class="btn success">Modify score.</button>
            <button onClick={this.glitch} class="btn success">Glitches.</button>
+           <button onClick={this.getstats} class="btn success">Get Stats</button>
          </div>
        );
-     } if (this.mode == "race") {
+     } else if (this.mode == "race") {
        var menu = (
          <div class="container">
            <button onClick={this.raceplace} class="btn success">Race Place</button>
+           <button onClick={this.getstats} class="btn success">Get Stats</button>
          </div>
        );
      }
-     ReactDOM.render(menu, document.getElementById("main"))
+     $("#main").fadeOut()
+     setTimeout(function () {
+       ReactDOM.render(menu, document.getElementById("main"))
+     }, 100);
+     $("#main").fadeIn()
   }
-
+  getstats() {
+    var socket = this.socket
+    socket.send('{"t":"d","d":{"r":3,"a":"q","b":{"p":"/' + pin + '/c","h":""}}}')
+    socket.onmessage = function(data) {
+      console.log(data)
+      var data = JSON.parse(data.data)
+      if (data.d.b.p) {
+        socket.onmessage = null
+        var data = data.d.b.d
+        var stats = []
+        for (var i in data) {
+          stats.push(
+            <div class="card">
+              <img src={"https://res.cloudinary.com/blooket/image/upload/v1556829562/Blooks/" + data[i][Object.keys(data[i])[0]] + ".svg"} alt="Avatar" id="card"></img>
+              <div class="container">
+                <h4><b>Name: {i}</b></h4>
+                <p>Score: {parseInt(data[i][Object.keys(data[i])[Object.keys(data[i]).length - 1]]) || 0}</p>
+              </div>
+            </div>
+            )
+        }
+        var statrender = (
+          <div class="container">
+          {stats}
+          <button name="gamecheck" onClick={this.select}>Go back</button>
+          </div>
+        )
+        console.log(statrender)
+        ReactDOM.render(statrender, document.getElementById("main"))
+      }
+    }
+  }
   changescore() {
     animal = document.getElementById("animal").value
     name = document.getElementById("name").value
@@ -57,8 +97,6 @@ class blooket {
     if (this.mode == "cafe" || this.mode == "factory") {
       var score = document.getElementById("score").value
       socket.send('{"t":"d","d":{"r":3,"a":"p","b":{"p":"/' + this.pin + '/c/' + name + '","d":{"b":"' + animal +'","ca":' + score + '}}}}')
-      $("#main").fadeOut()
-      $("#main").hide("300").fadeIn()
     } else if (this.mode == "goldquest") {
      var score = document.getElementById("score").value
       socket.send('{"t":"d","d":{"r":3,"a":"p","b":{"p":"/' + this.pin + '/c/' + name + '","d":{"b":"' + animal +'","g":' + score + '}}}}')
@@ -67,6 +105,7 @@ class blooket {
       var place = document.getElementById("place").value
       socket.send('{"t":"d","d":{"r":3,"a":"p","b":{"p":"/' + this.pin + '/c/' + name + '","d":{"b":"' + animal + '","pr":' + place + '}}}}')
     }
+    $("#main").fadeOut().hide("300").fadeIn()
   }
   glitchplayers() {
     var socket = this.socket
@@ -211,7 +250,11 @@ class blooket {
         <button name="gamecheck" onClick={this.select}>Go back</button>
       </div>
     );
-    ReactDOM.render(glitchform, document.getElementById('main'));
+    $("#main").fadeOut()
+    setTimeout(function () {
+      ReactDOM.render(glitchform, document.getElementById("main"))
+    }, 100);
+    $("#main").fadeIn()
   }
   raceplace() {
     const raceform = (
@@ -485,9 +528,12 @@ class blooket {
         <button name="gamecheck" onClick={this.select}>Go back</button>
       </div>
     );
-    ReactDOM.render(change, document.getElementById('main'));
+    $("#main").fadeOut()
+    setTimeout(function () {
+      ReactDOM.render(change, document.getElementById("main"))
+    }, 100);
+    $("#main").fadeIn()
   }
-
   getgame() {
     const getform = (
       <div class="container">
@@ -505,7 +551,8 @@ class blooket {
         <button name="gamecheck" onClick={this.checkgame}>Check game</button>
       </div>
     );
-    ReactDOM.render(getform, document.getElementById('root'));
+    ReactDOM.render(getform, document.getElementById("root"))
+    $("#root").hide(0).delay(500).fadeIn(1000)
   }
   async socketcheck() {
     return new Promise(resolve => {
@@ -581,12 +628,12 @@ class blooket {
 });
 }
 }
-function begin(s) {
-  s.remove()
+window.onload = function() {
+  document.getElementById("root").style.display = "none"
+}
+window.onclick = function() {
+  $("#begin").fadeOut(500)
+  window.onclick = null
   const blook = new blooket()
-  try {
-    blook.getgame()
-  } catch (e) {
-    console.log(e)
-  }
+  blook.getgame()
 }

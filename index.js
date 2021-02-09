@@ -18,6 +18,7 @@ class blooket {
     this.mode = document.getElementById("mode").value
     console.log(this)
     $("#root").fadeOut()
+    ReactDOM.render((<div id="loader"></div>), document.getElementById("main"))
     if (pin == '') {
       alert("Pin cannot be blank!")
       location.reload()
@@ -30,7 +31,7 @@ class blooket {
   select() {
      var menu = (
        <div class="container">
-         <button onClick={this.modify} class="btn success">Modify score/powerups.</button>
+         <button onClick={this.modify} class="btn success only">Modify score/powerups.</button>
        </div>
      );
      if (this.mode == "factory") {
@@ -47,7 +48,11 @@ class blooket {
          </div>
        );
      }
-     ReactDOM.render(menu, document.getElementById("main"))
+     $("#main").fadeOut()
+     setTimeout(function () {
+       ReactDOM.render(menu, document.getElementById("main"))
+     }, 100);
+     $("#main").fadeIn()
   }
 
   changescore() {
@@ -57,8 +62,6 @@ class blooket {
     if (this.mode == "cafe" || this.mode == "factory") {
       var score = document.getElementById("score").value
       socket.send('{"t":"d","d":{"r":3,"a":"p","b":{"p":"/' + this.pin + '/c/' + name + '","d":{"b":"' + animal +'","ca":' + score + '}}}}')
-      $("#main").fadeOut()
-      $("#main").hide("300").fadeIn()
     } else if (this.mode == "goldquest") {
      var score = document.getElementById("score").value
       socket.send('{"t":"d","d":{"r":3,"a":"p","b":{"p":"/' + this.pin + '/c/' + name + '","d":{"b":"' + animal +'","g":' + score + '}}}}')
@@ -67,6 +70,7 @@ class blooket {
       var place = document.getElementById("place").value
       socket.send('{"t":"d","d":{"r":3,"a":"p","b":{"p":"/' + this.pin + '/c/' + name + '","d":{"b":"' + animal + '","pr":' + place + '}}}}')
     }
+    $("#main").fadeOut().hide("300").fadeIn()
   }
   glitchplayers() {
     var socket = this.socket
@@ -211,7 +215,11 @@ class blooket {
         <button name="gamecheck" onClick={this.select}>Go back</button>
       </div>
     );
-    ReactDOM.render(glitchform, document.getElementById('main'));
+    $("#main").fadeOut()
+    setTimeout(function () {
+      ReactDOM.render(glitchform, document.getElementById("main"))
+    }, 100);
+    $("#main").fadeIn()
   }
   raceplace() {
     const raceform = (
@@ -485,7 +493,11 @@ class blooket {
         <button name="gamecheck" onClick={this.select}>Go back</button>
       </div>
     );
-    ReactDOM.render(change, document.getElementById('main'));
+    $("#main").fadeOut()
+    setTimeout(function () {
+      ReactDOM.render(change, document.getElementById("main"))
+    }, 100);
+    $("#main").fadeIn()
   }
 
   getgame() {
@@ -505,7 +517,11 @@ class blooket {
         <button name="gamecheck" onClick={this.checkgame}>Check game</button>
       </div>
     );
-    ReactDOM.render(getform, document.getElementById('root'));
+    $("#root").fadeOut()
+    setTimeout(function () {
+      ReactDOM.render(getform, document.getElementById("root"))
+    }, 100);
+    $("#root").fadeIn()
   }
   async socketcheck() {
     return new Promise(resolve => {
@@ -522,6 +538,7 @@ class blooket {
       }
     }
     var first = setTimeout(function() {
+      socket.close()
       socket = new WebSocket("wss://s-usc1c-nss-243.firebaseio.com/.ws?v=5&ns=blooket-2021")
       socket.onopen = function() {
         socket.send('{"t":"d","d":{"r":2,"a":"q","b":{"p":"/' + pin + '","h":""}}}')
@@ -534,6 +551,7 @@ class blooket {
         }
       }
       var seconds = setTimeout(function () {
+          socket.close()
           var socket = new WebSocket("wss://s-usc1c-nss-202.firebaseio.com/.ws?v=5&ns=blooket-2023")
           socket.onopen = function() {
             socket.send('{"t":"d","d":{"r":2,"a":"q","b":{"p":"/' + pin + '","h":""}}}')
@@ -546,6 +564,7 @@ class blooket {
             }
           }
           var third = setTimeout(function () {
+            socket.close()
             var socket = new WebSocket("wss://s-usc1c-nss-207.firebaseio.com/.ws?v=5&ns=blooket-2022")
             socket.onopen = function() {
               socket.send('{"t":"d","d":{"r":2,"a":"q","b":{"p":"/' + pin + '","h":""}}}')
@@ -558,6 +577,7 @@ class blooket {
               }
             }
             var fourth = setTimeout(function () {
+              socket.close()
               var socket = new WebSocket("wss://s-usc1c-nss-271.firebaseio.com/.ws?v=5&ns=blooket-2024")
               socket.onopen = function() {
                 socket.send('{"t":"d","d":{"r":2,"a":"q","b":{"p":"/' + pin + '","h":""}}}')
@@ -581,12 +601,9 @@ class blooket {
 });
 }
 }
-function begin(s) {
-  s.remove()
+window.onclick = function() {
+  document.getElementById("begin").remove()
+  window.onclick = null
   const blook = new blooket()
-  try {
-    blook.getgame()
-  } catch (e) {
-    console.log(e)
-  }
+  blook.getgame()
 }

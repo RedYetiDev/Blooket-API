@@ -65,9 +65,7 @@ div.container {
   padding: 14px 28px;
   font-size: 16px;
   cursor: pointer;
-}
-.btn :not(.only) {
-  width: 50%;
+  width: 100%;
 }
 .success {
   border-color: #4CAF50;
@@ -77,9 +75,6 @@ div.container {
 .success:hover {
   background-color: #4CAF50;
   color: white;
-}
-.btn .only {
-  width: 100%;
 }
 /* Loader */
 #loader {
@@ -105,4 +100,22 @@ div.container {
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+/* Get Stats */
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  width: auto;
+  max-width: 33%;
+}
+
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.cardcontainer {
+  padding: 2px 16px;
+}
+#card {
+  width:100%;
 }

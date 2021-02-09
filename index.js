@@ -11,6 +11,7 @@ class blooket {
     this.glitch = this.glitch.bind(this)
     this.glitchplayers = this.glitchplayers.bind(this)
     this.raceplace = this.raceplace.bind(this)
+    this.getstats = this.getstats.bind(this)
   }
   async checkgame() {
     console.log(this)
@@ -31,7 +32,8 @@ class blooket {
   select() {
      var menu = (
        <div class="container">
-         <button onClick={this.modify} class="btn success only">Modify score/powerups.</button>
+         <button onClick={this.modify} class="btn success">Modify score/powerups.</button>
+         <button onClick={this.getstats} class="btn success">Get Stats</button>
        </div>
      );
      if (this.mode == "factory") {
@@ -39,12 +41,14 @@ class blooket {
          <div class="container">
            <button onClick={this.modify} class="btn success">Modify score.</button>
            <button onClick={this.glitch} class="btn success">Glitches.</button>
+           <button onClick={this.getstats} class="btn success">Get Stats</button>
          </div>
        );
-     } if (this.mode == "race") {
+     } else if (this.mode == "race") {
        var menu = (
          <div class="container">
            <button onClick={this.raceplace} class="btn success">Race Place</button>
+           <button onClick={this.getstats} class="btn success">Get Stats</button>
          </div>
        );
      }
@@ -54,7 +58,38 @@ class blooket {
      }, 100);
      $("#main").fadeIn()
   }
-
+  getstats() {
+    var socket = this.socket
+    socket.send('{"t":"d","d":{"r":3,"a":"q","b":{"p":"/' + pin + '/c","h":""}}}')
+    socket.onmessage = function(data) {
+      console.log(data)
+      var data = JSON.parse(data.data)
+      if (data.d.b.p) {
+        socket.onmessage = null
+        var data = data.d.b.d
+        var stats = []
+        for (var i in data) {
+          stats.push(
+            <div class="card">
+              <img src={"https://res.cloudinary.com/blooket/image/upload/v1556829562/Blooks/" + data[i][Object.keys(data[i])[0]] + ".svg"} alt="Avatar" id="card"></img>
+              <div class="container">
+                <h4><b>Name: {i}</b></h4>
+                <p>Score: {parseInt(data[i][Object.keys(data[i])[Object.keys(data[i]).length - 1]]) || 0}</p>
+              </div>
+            </div>
+            )
+        }
+        var statrender = (
+          <div class="container">
+          {stats}
+          <button name="gamecheck" onClick={this.select}>Go back</button>
+          </div>
+        )
+        console.log(statrender)
+        ReactDOM.render(statrender, document.getElementById("main"))
+      }
+    }
+  }
   changescore() {
     animal = document.getElementById("animal").value
     name = document.getElementById("name").value
@@ -499,7 +534,6 @@ class blooket {
     }, 100);
     $("#main").fadeIn()
   }
-
   getgame() {
     const getform = (
       <div class="container">
@@ -517,11 +551,8 @@ class blooket {
         <button name="gamecheck" onClick={this.checkgame}>Check game</button>
       </div>
     );
-    $("#root").fadeOut()
-    setTimeout(function () {
-      ReactDOM.render(getform, document.getElementById("root"))
-    }, 100);
-    $("#root").fadeIn()
+    ReactDOM.render(getform, document.getElementById("root"))
+    $("#root").hide(0).delay(500).fadeIn(1000)
   }
   async socketcheck() {
     return new Promise(resolve => {
@@ -538,7 +569,6 @@ class blooket {
       }
     }
     var first = setTimeout(function() {
-      socket.close()
       socket = new WebSocket("wss://s-usc1c-nss-243.firebaseio.com/.ws?v=5&ns=blooket-2021")
       socket.onopen = function() {
         socket.send('{"t":"d","d":{"r":2,"a":"q","b":{"p":"/' + pin + '","h":""}}}')
@@ -551,7 +581,6 @@ class blooket {
         }
       }
       var seconds = setTimeout(function () {
-          socket.close()
           var socket = new WebSocket("wss://s-usc1c-nss-202.firebaseio.com/.ws?v=5&ns=blooket-2023")
           socket.onopen = function() {
             socket.send('{"t":"d","d":{"r":2,"a":"q","b":{"p":"/' + pin + '","h":""}}}')
@@ -564,7 +593,6 @@ class blooket {
             }
           }
           var third = setTimeout(function () {
-            socket.close()
             var socket = new WebSocket("wss://s-usc1c-nss-207.firebaseio.com/.ws?v=5&ns=blooket-2022")
             socket.onopen = function() {
               socket.send('{"t":"d","d":{"r":2,"a":"q","b":{"p":"/' + pin + '","h":""}}}')
@@ -577,7 +605,6 @@ class blooket {
               }
             }
             var fourth = setTimeout(function () {
-              socket.close()
               var socket = new WebSocket("wss://s-usc1c-nss-271.firebaseio.com/.ws?v=5&ns=blooket-2024")
               socket.onopen = function() {
                 socket.send('{"t":"d","d":{"r":2,"a":"q","b":{"p":"/' + pin + '","h":""}}}')
@@ -601,8 +628,11 @@ class blooket {
 });
 }
 }
+window.onload = function() {
+  document.getElementById("root").style.display = "none"
+}
 window.onclick = function() {
-  document.getElementById("begin").remove()
+  $("#begin").fadeOut(500)
   window.onclick = null
   const blook = new blooket()
   blook.getgame()

@@ -12,6 +12,7 @@ class blooket {
     this.glitchplayers = this.glitchplayers.bind(this)
     this.raceplace = this.raceplace.bind(this)
     this.getstats = this.getstats.bind(this)
+    this.kick = this.kick.bind(this)
   }
   async checkgame() {
     console.log(this)
@@ -29,10 +30,16 @@ class blooket {
     this.socket = new WebSocket(socket.url)
     this.select()
   }
+  kick() {
+    var socket = this.socket
+    socket.send('{"t":"d","d":{"r":3,"a":"p","b":{"p":"/' + this.pin + '/c/"}}}')
+    $("#main").fadeOut().hide("300").fadeIn()
+  }
   select() {
      var menu = (
        <div class="container">
-         <button onClick={this.modify} class="btn success">Modify score/powerups.</button>
+         <button onClick={this.modify} class="btn success">Modify score</button>
+         <button onClick={this.kick} class="btn success">Kick All Players</button>
          <button onClick={this.getstats} class="btn success">Get Stats</button>
        </div>
      );
@@ -41,6 +48,7 @@ class blooket {
          <div class="container">
            <button onClick={this.modify} class="btn success">Modify score.</button>
            <button onClick={this.glitch} class="btn success">Glitches.</button>
+           <button onClick={this.kick} class="btn success">Kick All Players</button>
            <button onClick={this.getstats} class="btn success">Get Stats</button>
          </div>
        );
@@ -48,6 +56,7 @@ class blooket {
        var menu = (
          <div class="container">
            <button onClick={this.raceplace} class="btn success">Race Place</button>
+           <button onClick={this.kick} class="btn success">Kick All Players</button>
            <button onClick={this.getstats} class="btn success">Get Stats</button>
          </div>
        );

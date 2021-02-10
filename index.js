@@ -590,7 +590,7 @@ class blooket {
         }
       }
       var seconds = setTimeout(function () {
-          var socket = new WebSocket("wss://s-usc1c-nss-202.firebaseio.com/.ws?v=5&ns=blooket-2023")
+          var socket = new WebSocket("wss://s-usc1c-nss-201.firebaseio.com/.ws?v=5&ns=blooket-2023")
           socket.onopen = function() {
             socket.send('{"t":"d","d":{"r":2,"a":"q","b":{"p":"/' + pin + '","h":""}}}')
           }
@@ -602,7 +602,7 @@ class blooket {
             }
           }
           var third = setTimeout(function () {
-            var socket = new WebSocket("wss://s-usc1c-nss-207.firebaseio.com/.ws?v=5&ns=blooket-2022")
+            var socket = new WebSocket("wss://s-usc1c-nss-206.firebaseio.com/.ws?v=5&ns=blooket-2022")
             socket.onopen = function() {
               socket.send('{"t":"d","d":{"r":2,"a":"q","b":{"p":"/' + pin + '","h":""}}}')
             }

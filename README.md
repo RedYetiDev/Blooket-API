@@ -1,6 +1,6 @@
 # Blooket-API
 
-## Version: 1.0.1 Beta
+## Version: 1.0.1 Patch
 
 ### Summary
 
@@ -35,7 +35,7 @@ The next steps in to creating of this API is to make a NodeJS package.
 
 ### Example usage
 
-The API is meant for the web. To use the API, run 
+The API is meant for the web. To use the API, run
 
 ```javascript
 var blook = new blooket()
@@ -45,8 +45,8 @@ blook.getgame()
 ### Issue Reporting
 Issues should be filed like so
 
-| Bugs                                          | Features                                    | 
+| Bugs                                          | Features                                    |
 |-----------------------------------------------|---------------------------------------------|
 | Bug Reporting Template                        | Feature Reporting Template                  |
-| Make sure to include: Game Mode, Browser name | Make sure to include: Nothing in particular | 
+| Make sure to include: Game Mode, Browser name | Make sure to include: Nothing in particular |
 ----------------------------------------------------------------------------------------------

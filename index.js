@@ -35,11 +35,12 @@ class blooket {
   }
   spambot() {
     var socket = this.socket
-    var amount = document.getElementById("amount").value
+    var times = document.getElementById("amount").value
+    var name = document.getElementById("name").value
+    var animal = document.getElementById("animal").value
     var num = 0
-    while (num < amount) {
-      socket.send('{"t":"d","d":{"r":3,"a":"p","b":{"p":"/' + this.pin + '/c/' + name + num + '","d":{"b":"' + this.animal + '"}}}}')
-    }
+    var func = () => socket.send('{"t":"d","d":{"r":3,"a":"p","b":{"p":"/' + this.pin + '/c/' + name + String(times) + '","d":{"b":"' + animal + '"}}}}');
+    Array.from({length: amount}, () => func());
   }
   unstable() {
     swal({
@@ -77,7 +78,7 @@ class blooket {
           timer: 1000,
         });
         this.select()
-      } else if (spam == "mi") {
+      } else {
         swal("Redirecting you to more information", {
           icon: "success",
           timer: 1000,

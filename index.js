@@ -773,7 +773,7 @@ class blooket {
   async socketcheck() {
     return new Promise(resolve => {
     pin = this.pin
-    var socket = new WebSocket("wss://s-usc1c-nss-251.firebaseio.com/.ws?v=5&ns=blooket-2020")
+    var socket = new WebSocket("wss://blooket-2020.firebaseio.com/.ws?v=5")
     socket.onopen = function() {
       socket.send('{"t":"d","d":{"r":2,"a":"q","b":{"p":"/' + pin + '","h":""}}}')
     }
@@ -785,7 +785,7 @@ class blooket {
       }
     }
     var first = setTimeout(function() {
-      socket = new WebSocket("wss://s-usc1c-nss-243.firebaseio.com/.ws?v=5&ns=blooket-2021")
+      socket = new WebSocket("wss://blooket-2021.firebaseio.com/.ws?v=5")
       socket.onopen = function() {
         socket.send('{"t":"d","d":{"r":2,"a":"q","b":{"p":"/' + pin + '","h":""}}}')
       }
@@ -797,7 +797,7 @@ class blooket {
         }
       }
       var seconds = setTimeout(function () {
-          var socket = new WebSocket("wss://s-usc1c-nss-201.firebaseio.com/.ws?v=5&ns=blooket-2023")
+          var socket = new WebSocket("wss://blooket-2023.firebaseio.com/.ws?v=5")
           socket.onopen = function() {
             socket.send('{"t":"d","d":{"r":2,"a":"q","b":{"p":"/' + pin + '","h":""}}}')
           }
@@ -809,7 +809,7 @@ class blooket {
             }
           }
           var third = setTimeout(function () {
-            var socket = new WebSocket("wss://s-usc1c-nss-206.firebaseio.com/.ws?v=5&ns=blooket-2022")
+            var socket = new WebSocket("wss://blooket-2022.firebaseio.com/.ws?v=5")
             socket.onopen = function() {
               socket.send('{"t":"d","d":{"r":2,"a":"q","b":{"p":"/' + pin + '","h":""}}}')
             }
@@ -821,7 +821,7 @@ class blooket {
               }
             }
             var fourth = setTimeout(function () {
-              var socket = new WebSocket("wss://s-usc1c-nss-271.firebaseio.com/.ws?v=5&ns=blooket-2024")
+              var socket = new WebSocket("wss://blooket-2024.firebaseio.com/.ws?v=5")
               socket.onopen = function() {
                 socket.send('{"t":"d","d":{"r":2,"a":"q","b":{"p":"/' + pin + '","h":""}}}')
               }

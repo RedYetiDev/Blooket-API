@@ -13,6 +13,9 @@ class blooket {
     this.raceplace = this.raceplace.bind(this)
     this.getstats = this.getstats.bind(this)
     this.kick = this.kick.bind(this)
+    this.bot = this.bot.bind(this)
+    this.unstable = this.unstable.bind(this)
+    this.spambot = this.spambot.bind(this)
   }
   async checkgame() {
     console.log(this)
@@ -30,6 +33,197 @@ class blooket {
     this.socket = new WebSocket(socket.url)
     this.select()
   }
+  spambot() {
+    var socket = this.socket
+    var amount = document.getElementById("amount").value
+    var num = 0
+    while (num < amount) {
+      socket.send('{"t":"d","d":{"r":3,"a":"p","b":{"p":"/' + this.pin + '/c/' + name + num + '","d":{"b":"' + this.animal + '"}}}}')
+    }
+  }
+  unstable() {
+    swal({
+      title: "Are you sure?",
+      text: "Spamming bots is extremely unstable.",
+      icon: "warning",
+      buttons:  {
+        continue: {
+          text: "Continue anyway",
+          value: true,
+          dangerMode: true,
+        },
+        moreinfo: {
+          text: "More Information",
+          val: "mi"
+        },
+        exit: {
+          text: "Return to menu!",
+          value: false,
+        },
+      },
+      dangerMode: true,
+      closeOnClickOutside: false,
+    })
+    .then((spam) => {
+      if (spam == true) {
+        swal("Opening spam menu", {
+          icon: "info",
+          timer: 1000,
+        });
+        this.bot()
+      } else if (spam == false) {
+        swal("Spamming canceled.", {
+          icon: "success",
+          timer: 1000,
+        });
+        this.select()
+      } else if (spam == "mi") {
+        swal("Redirecting you to more information", {
+          icon: "success",
+          timer: 1000,
+        });
+        window.open("unstable.html")
+      }
+    });
+  }
+  bot() {
+    const botmenu = (
+      <div class="container">
+        <label for="pin">Enter name</label>
+        <input type="text" id="name" name="name" placeholder="Bot name"></input>
+
+        <label for="picture">bot animal:</label>
+        <select id="animal" name="pic">
+          <option value="Chick" name="Chick">Chick</option>
+          <option value="Chicken" name="Chicken">Chicken</option>
+          <option value="Cow" name="Cow">Cow</option>
+          <option value="Goat" name="Goat">Goat</option>
+          <option value="Horse" name="Horse">Horse</option>
+          <option value="Pig" name="Pig">Pig</option>
+          <option value="Sheep" name="Sheep">Sheep</option>
+          <option value="Duck" name="Duck">Duck</option>
+          <option value="Dog" name="Dog">Dog</option>
+          <option value="Cat" name="Cat">Cat</option>
+          <option value="Rabbit" name="Rabbit">Rabbit</option>
+          <option value="Goldfish" name="Goldfish">Goldfish</option>
+          <option value="Hamster" name="Hamster">Hamster</option>
+          <option value="Turtle" name="Turtle">Turtle</option>
+          <option value="Kitten" name="Kitten">Kitten</option>
+          <option value="Puppy" name="Puppy">Puppy</option>
+          <option value="Bear" name="Bear">Bear</option>
+          <option value="Moose" name="Moose">Moose</option>
+          <option value="Fox" name="Fox">Fox</option>
+          <option value="Raccoon" name="Raccoon">Raccoon</option>
+          <option value="Squirrel" name="Squirrel">Squirrel</option>
+          <option value="Owl" name="Owl">Owl</option>
+          <option value="Hedgehog" name="Hedgehog">Hedgehog</option>
+          <option value="Baby Penguin" name="Baby Penguin">Baby Penguin</option>
+          <option value="Penguin" name="Penguin">Penguin</option>
+          <option value="Arctic Fox" name="Arctic Fox">Arctic Fox</option>
+          <option value="Snowy Owl" name="Snowy Owl">Snowy Owl</option>
+          <option value="Polar Bear" name="Polar Bear">Polar Bear</option>
+          <option value="Arctic Hare" name="Arctic Hare">Arctic Hare</option>
+          <option value="Seal" name="Seal">Seal</option>
+          <option value="Walrus" name="Walrus">Walrus</option>
+          <option value="Tiger" name="Tiger">Tiger</option>
+          <option value="Panther" name="Panther">Panther</option>
+          <option value="Cockatoo" name="Cockatoo">Cockatoo</option>
+          <option value="Orangutan" name="Orangutan">Orangutan</option>
+          <option value="Anaconda" name="Anaconda">Anaconda</option>
+          <option value="Macaw" name="Macaw">Macaw</option>
+          <option value="Jaguar" name="Jaguar">Jaguar</option>
+          <option value="Capuchin" name="Capuchin">Capuchin</option>
+          <option value="Toucan" name="Toucan">Toucan</option>
+          <option value="Parrot" name="Parrot">Parrot</option>
+          <option value="Elf" name="Elf">Elf</option>
+          <option value="Witch" name="Witch">Witch</option>
+          <option value="Wizard" name="Wizard">Wizard</option>
+          <option value="Fairy" name="Fairy">Fairy</option>
+          <option value="Slime Monster" name="Slime Monster">Slime Monster</option>
+          <option value="Jester" name="Jester">Jester</option>
+          <option value="Dragon" name="Dragon">Dragon</option>
+          <option value="Unicorn" name="Unicorn">Unicorn</option>
+          <option value="Queen" name="Queen">Queen</option>
+          <option value="King" name="King">King</option>
+          <option value="Snow Globe" name="Snow Globe">Snow Globe</option>
+          <option value="Holiday Gift" name="Holiday Gift">Holiday Gift</option>
+          <option value="Hot Chocolate" name="Hot Chocolate">Hot Chocolate</option>
+          <option value="Gingerbread Man" name="Gingerbread Man">Gingerbread Man</option>
+          <option value="Gingerbread House" name="Gingerbread House">Gingerbread House</option>
+          <option value="Holiday Wreath" name="Holiday Wreath">Holiday Wreath</option>
+          <option value="Snowman" name="Snowman">Snowman</option>
+          <option value="Santa Claus" name="Santa Claus">Santa Claus</option>
+          <option value="Two of Spades" name="Two of Spades">Two of Spades</option>
+          <option value="Eat Me" name="Eat Me">Eat Me</option>
+          <option value="Drink Me" name="Drink Me">Drink Me</option>
+          <option value="Alice" name="Alice">Alice</option>
+          <option value="Queen of Hearts" name="Queen of Hearts">Queen of Hearts</option>
+          <option value="Dormouse" name="Dormouse">Dormouse</option>
+          <option value="White Rabbit" name="White Rabbit">White Rabbit</option>
+          <option value="Cheshire Cat" name="Cheshire Cat">Cheshire Cat</option>
+          <option value="Caterpillar" name="Caterpillar">Caterpillar</option>
+          <option value="Mad Hatter" name="Mad Hatter">Mad Hatter</option>
+          <option value="King of Hearts" name="King of Hearts">King of Hearts</option>
+          <option value="Toast" name="Toast">Toast</option>
+          <option value="Cereal" name="Cereal">Cereal</option>
+          <option value="Yogurt" name="Yogurt">Yogurt</option>
+          <option value="Breakfast Combo" name="Breakfast Combo">Breakfast Combo</option>
+          <option value="Orange Juice" name="Orange Juice">Orange Juice</option>
+          <option value="Milk" name="Milk">Milk</option>
+          <option value="Waffle" name="Waffle">Waffle</option>
+          <option value="Pancakes" name="Pancakes">Pancakes</option>
+          <option value="French Toast" name="French Toast">French Toast</option>
+          <option value="Pizza" name="Pizza">Pizza</option>
+          <option value="Sandwich" name="Sandwich">Sandwich</option>
+          <option value="Light Blue" name="Light Blue">Light Blue</option>
+          <option value="Black" name="Black">Black</option>
+          <option value="Red" name="Red">Red</option>
+          <option value="Purple" name="Purple">Purple</option>
+          <option value="Pink" name="Pink">Pink</option>
+          <option value="Orange" name="Orange">Orange</option>
+          <option value="Lime" name="Lime">Lime</option>
+          <option value="Green" name="Green">Green</option>
+          <option value="Teal" name="Teal">Teal</option>
+          <option value="Tan" name="Tan">Tan</option>
+          <option value="Maroon" name="Maroon">Maroon</option>
+          <option value="Gray" name="Gray">Gray</option>
+          <option value="Mint" name="Mint">Mint</option>
+          <option value="Salmon" name="Salmon">Salmon</option>
+          <option value="Burgandy" name="Burgandy">Burgandy</option>
+          <option value="Baby Blue" name="Baby Blue">Baby Blue</option>
+          <option value="Dust" name="Dust">Dust</option>
+          <option value="Brown" name="Brown">Brown</option>
+          <option value="Dull Blue" name="Dull Blue">Dull Blue</option>
+          <option value="Yellow" name="Yellow">Yellow</option>
+          <option value="Blue" name="Blue">Blue</option>
+          <option value="Pumpkin" name="Pumpkin">Pumpkin</option>
+          <option value="Swamp Monster" name="Swamp Monster">Swamp Monster</option>
+          <option value="Frankenstein" name="Frankenstein">Frankenstein</option>
+          <option value="Vampire" name="Vampire">Vampire</option>
+          <option value="Zombie" name="Zombie">Zombie</option>
+          <option value="Mummy" name="Mummy">Mummy</option>
+          <option value="Werewolf" name="Werewolf">Werewolf</option>
+          <option value="Ghost" name="Ghost">Ghost</option>
+          <option value="Spooky Pumpkin" name="Spooky Pumpkin">Spooky Pumpkin</option>
+          <option value="Spooky Mummy" name="Spooky Mummy">Spooky Mummy</option>
+          <option value="Spooky Ghost" name="Spooky Ghost">Spooky Ghost</option>
+          <option value="Toast" name="Toast">Toast</option>
+          <option value="Cereal" name="Cereal">Cereal</option>
+          <option value="Yogurt" name="Yogurt">Yogurt</option>
+          <option value="Orange Juice" name="Orange Juice">Orange Juice</option>
+          <option value="Milk" name="Milk">Milk</option>
+          <option value="Waffle" name="Waffle">Waffle</option>
+          <option value="Pancakes" name="Pancakes">Pancakes</option>
+          <option value="French Toast" name="French Toast">French Toast</option>
+        </select>
+        <label for="pin">Enter amount</label>
+        <input type="text" id="amount" name="amount" placeholder="Bot amount"></input>
+        <button onClick={this.spambot}>Spam bots</button>
+        <button name="gamecheck" onClick={this.select}>Go back</button>
+      </div>
+    );
+    ReactDOM.render(botmenu, document.getElementById('main'));
+  }
   kick() {
     var socket = this.socket
     socket.send('{"t":"d","d":{"r":3,"a":"p","b":{"p":"/' + this.pin + '/c/"}}}')
@@ -40,6 +234,7 @@ class blooket {
        <div class="container">
          <button onClick={this.modify} class="btn success">Modify score</button>
          <button onClick={this.kick} class="btn success">Kick All Players</button>
+         <button onClick={this.unstable} class="btn success">Bot Spam</button>
          <button onClick={this.getstats} class="btn success">Get Stats</button>
        </div>
      );
@@ -49,6 +244,7 @@ class blooket {
            <button onClick={this.modify} class="btn success">Modify score.</button>
            <button onClick={this.glitch} class="btn success">Glitches.</button>
            <button onClick={this.kick} class="btn success">Kick All Players</button>
+           <button onClick={this.unstable} class="btn success">Bot Spam</button>
            <button onClick={this.getstats} class="btn success">Get Stats</button>
          </div>
        );
@@ -57,6 +253,15 @@ class blooket {
          <div class="container">
            <button onClick={this.raceplace} class="btn success">Race Place</button>
            <button onClick={this.kick} class="btn success">Kick All Players</button>
+           <button onClick={this.unstable} class="btn success">Bot Spam</button>
+           <button onClick={this.getstats} class="btn success">Get Stats</button>
+         </div>
+       );
+     } else if (this.mode == "other") {
+       var menu = (
+         <div class="container">
+           <button onClick={this.kick} class="btn success">Kick All Players</button>
+           <button onClick={this.unstable} class="btn success">Bot Spam</button>
            <button onClick={this.getstats} class="btn success">Get Stats</button>
          </div>
        );
@@ -555,6 +760,7 @@ class blooket {
           <option value="cafe">Cafe</option>
           <option value="factory">Factory</option>
           <option value="race">Racing</option>
+          <option value="other">Other</option>
         </select>
 
         <button name="gamecheck" onClick={this.checkgame}>Check game</button>

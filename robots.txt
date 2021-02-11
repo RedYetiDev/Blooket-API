@@ -1,0 +1,4 @@
+# all
+User-agent: *
+Disallow: unstable
+Disallow: unstable.html

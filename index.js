@@ -48,7 +48,7 @@ class blooket {
       icon: "warning",
       buttons:  {
         continue: {
-          text: "Continue anyway",
+          text: "Continue",
           value: true,
           dangerMode: true,
         },
@@ -57,7 +57,7 @@ class blooket {
           val: "mi"
         },
         exit: {
-          text: "Return to menu!",
+          text: "Go Back",
           value: false,
         },
       },

@@ -802,23 +802,23 @@ class blooket {
                         return resolve(result)
                       }
                     }
-                    xml.open("get","https://blooket-2024.firebaseio.com/.lp")
+                    xml.open("get","https://corsanywhere.herokuapp.com/https://blooket\-2024.firebaseio.com/.lp")
                     xml.send()
                   }
                 }
-                xml.open("get","https://blooket-2023.firebaseio.com/.lp")
+                xml.open("get","https://corsanywhere.herokuapp.com/https://blooket\-2023.firebaseio.com/.lp")
                 xml.send()
               }
             }
-            xml.open("get","https://blooket-2022.firebaseio.com/.lp")
+            xml.open("get","https://corsanywhere.herokuapp.com/https://blooket\-2022.firebaseio.com/.lp")
             xml.send()
           }
         }
-        xml.open("get","https://blooket-2021.firebaseio.com/.lp")
+        xml.open("get","https://corsanywhere.herokuapp.com/https://blooket\-2021.firebaseio.com/.lp")
         xml.send()
       }
     }
-    xml.open("get","https://blooket-2020.firebaseio.com/.lp")
+    xml.open("get","https://corsanywhere.herokuapp.com/https://blooket\-2020.firebaseio.com/.lp")
     xml.send()
     })
   }

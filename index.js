@@ -459,9 +459,15 @@ class blooket {
           <option value="Pancakes" name="Pancakes">Pancakes</option>
           <option value="French Toast" name="French Toast">French Toast</option>
         </select>
-        <label for="Glitch Selection">Place (up to 30):</label>
-        <input id="place" type="number"></input>
-        <button name="gamecheck" onClick={this.changescore}>Glitch</button>
+        <label for="Glitch Selection">Glitch:</label>
+        <select id="glitchtype" name="Glitch Selection">
+          <option value="as">Ad Spam</option>
+          <option value="lo">LOL</option>
+          <option value="sm">Slow Mo</option>
+          <option value="f">Flip</option>
+          <option value="lb">Lunch Break</option>
+        </select>
+        <button name="gamecheck" onClick={this.glitchplayers}>Glitch</button>
         <button name="gamecheck" onClick={this.select}>Go back</button>
       </div>
     );

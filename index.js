@@ -770,10 +770,64 @@ class blooket {
     ReactDOM.render(getform, document.getElementById("root"))
     $("#root").hide(0).delay(500).fadeIn(1000)
   }
+  async SocketDetect() {
+    return new Promise((resolve, reject) => {
+    var result = []
+    var xml = new XMLHttpRequest()
+    xml.onreadystatechange = function() {
+      console.log(xml.readyState)
+      if (xml.readyState == 4) {
+        var body = xml.responseText
+        result.push("wss://" + JSON.parse(body.split('(0,')[1].split(/\n/)[0].split("]);")[0].split("[")[1]).d.d + "/.ws?v=5&ns=blooket-2020")
+        xml.onreadystatechange = function() {
+          console.log(xml.readyState)
+          if (xml.readyState == 4) {
+            var body = xml.responseText
+            result.push("wss://" + JSON.parse(body.split('(0,')[1].split(/\n/)[0].split("]);")[0].split("[")[1]).d.d + "/.ws?v=5&ns=blooket-2021")
+            xml.onreadystatechange = function() {
+              console.log(xml.readyState)
+              if (xml.readyState == 4) {
+                var body = xml.responseText
+                result.push("wss://" + JSON.parse(body.split('(0,')[1].split(/\n/)[0].split("]);")[0].split("[")[1]).d.d + "/.ws?v=5&ns=blooket-2022")
+                xml.onreadystatechange = function() {
+                  console.log(xml.readyState)
+                  if (xml.readyState == 4) {
+                    var body = xml.responseText
+                    result.push("wss://" + JSON.parse(body.split('(0,')[1].split(/\n/)[0].split("]);")[0].split("[")[1]).d.d + "/.ws?v=5&ns=blooket-2023")
+                    xml.onreadystatechange = function() {
+                      console.log(xml.readyState)
+                      if (xml.readyState == 4) {
+                        var body = xml.responseText
+                        result.push("wss://" + JSON.parse(body.split('(0,')[1].split(/\n/)[0].split("]);")[0].split("[")[1]).d.d + "/.ws?v=5&ns=blooket-2024")
+                        return resolve(result)
+                      }
+                    }
+                    xml.open("get","https://blooket-2024.firebaseio.com/.lp")
+                    xml.send()
+                  }
+                }
+                xml.open("get","https://blooket-2023.firebaseio.com/.lp")
+                xml.send()
+              }
+            }
+            xml.open("get","https://blooket-2022.firebaseio.com/.lp")
+            xml.send()
+          }
+        }
+        xml.open("get","https://blooket-2021.firebaseio.com/.lp")
+        xml.send()
+      }
+    }
+    xml.open("get","https://blooket-2020.firebaseio.com/.lp")
+    xml.send()
+    })
+  }
   async socketcheck() {
+    var sockets = await this.SocketDetect()
+    console.log(sockets)
     return new Promise(resolve => {
     pin = this.pin
-    var socket = new WebSocket("wss://blooket-2020.firebaseio.com/.ws?v=5")
+    var socket = new WebSocket(sockets[0])
     socket.onopen = function() {
       socket.send('{"t":"d","d":{"r":2,"a":"q","b":{"p":"/' + pin + '","h":""}}}')
     }
@@ -785,7 +839,7 @@ class blooket {
       }
     }
     var first = setTimeout(function() {
-      socket = new WebSocket("wss://blooket-2021.firebaseio.com/.ws?v=5")
+      socket = new WebSocket(sockets[1])
       socket.onopen = function() {
         socket.send('{"t":"d","d":{"r":2,"a":"q","b":{"p":"/' + pin + '","h":""}}}')
       }
@@ -797,7 +851,7 @@ class blooket {
         }
       }
       var seconds = setTimeout(function () {
-          var socket = new WebSocket("wss://blooket-2023.firebaseio.com/.ws?v=5")
+          var socket = new WebSocket(sockets[2])
           socket.onopen = function() {
             socket.send('{"t":"d","d":{"r":2,"a":"q","b":{"p":"/' + pin + '","h":""}}}')
           }
@@ -809,7 +863,7 @@ class blooket {
             }
           }
           var third = setTimeout(function () {
-            var socket = new WebSocket("wss://blooket-2022.firebaseio.com/.ws?v=5")
+            var socket = new WebSocket(sockets[3])
             socket.onopen = function() {
               socket.send('{"t":"d","d":{"r":2,"a":"q","b":{"p":"/' + pin + '","h":""}}}')
             }
@@ -821,7 +875,7 @@ class blooket {
               }
             }
             var fourth = setTimeout(function () {
-              var socket = new WebSocket("wss://blooket-2024.firebaseio.com/.ws?v=5")
+              var socket = new WebSocket(sockets[4])
               socket.onopen = function() {
                 socket.send('{"t":"d","d":{"r":2,"a":"q","b":{"p":"/' + pin + '","h":""}}}')
               }

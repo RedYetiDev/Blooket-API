@@ -1,0 +1,25 @@
+name: Mark stale issues and pull requests
+
+on:
+  schedule:
+  - cron: "30 1 * * *"
+
+jobs:
+  stale:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/stale@v3
+      with:
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        stale-issue-message: 'Hey there, looks like there is no activity here for 3 days, if there is still no activity in 2 days, I and going to close this issue.'
+        stale-pr-message: 'Hey there, looks like there is no activity here for 3 days, if there is still no activity in 2 days, I and going to close this pull request.'
+        stale-issue-label: 'no activity'
+        stale-pr-label: 'no activity'
+        days-before-issue-stale: 3
+        days-before-pr-stale: 3
+        days-before-issue-close: 2
+        days-before-pr-close: 2
+        exempt-pr-labels: 'investigating,patching,patched,wait'
+        exempt-issue-labels: 'investigating,patching,patched,wait'
